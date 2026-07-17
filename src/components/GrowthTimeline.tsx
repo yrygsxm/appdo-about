@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { useRef } from "react";
 import { useLanguage } from "./LanguageProvider";
 import type { Locale } from "@/lib/i18n";
 
@@ -14,6 +15,8 @@ type TimelineEntry = {
 type TimelineCopy = {
   eyebrow: string;
   title: string;
+  previous: string;
+  next: string;
   entries: TimelineEntry[];
   closingTitle: string;
   closingParagraphs: string[];
@@ -23,6 +26,8 @@ const timelineCopy: Record<Locale, TimelineCopy> = {
   zh: {
     eyebrow: "成长轨迹",
     title: "成长时间线",
+    previous: "查看上一阶段",
+    next: "查看下一阶段",
     entries: [
       {
         date: "2020 年 2 月 28 日",
@@ -73,6 +78,8 @@ const timelineCopy: Record<Locale, TimelineCopy> = {
   ja: {
     eyebrow: "成長の軌跡",
     title: "成長タイムライン",
+    previous: "前のステージを見る",
+    next: "次のステージを見る",
     entries: [
       {
         date: "2020年2月28日",
@@ -123,6 +130,8 @@ const timelineCopy: Record<Locale, TimelineCopy> = {
   en: {
     eyebrow: "Our journey",
     title: "Growth timeline",
+    previous: "View previous milestone",
+    next: "View next milestone",
     entries: [
       {
         date: "February 28, 2020",
@@ -176,44 +185,59 @@ export function GrowthTimeline() {
   const reduceMotion = useReducedMotion();
   const { locale } = useLanguage();
   const copy = timelineCopy[locale];
+  const scrollerRef = useRef<HTMLDivElement>(null);
+
+  function scrollTimeline(direction: -1 | 1) {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+    const distance = Math.min(scroller.clientWidth * 0.82, 430);
+    scroller.scrollBy({ left: direction * distance, behavior: reduceMotion ? "auto" : "smooth" });
+  }
 
   return (
     <section className="about-timeline-section mt-10 border-t border-white/[0.1] pt-10 sm:mt-12 sm:pt-12 lg:mt-14 lg:pt-14" aria-labelledby="growth-timeline-title">
-      <motion.div
-        initial={{ opacity: 0, y: 26 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.22 }}
-        transition={{ duration: reduceMotion ? 0 : 0.66, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <p className="text-sm font-semibold tracking-[0.04em] text-[#4ea1ff]">{copy.eyebrow}</p>
-        <h2 id="growth-timeline-title" className="mt-5 text-4xl font-extrabold tracking-[-0.05em] text-white sm:text-5xl lg:text-6xl">{copy.title}</h2>
-      </motion.div>
+      <div className="flex items-end justify-between gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 26 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.22 }}
+          transition={{ duration: reduceMotion ? 0 : 0.66, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p className="text-sm font-semibold tracking-[0.04em] text-[#4ea1ff]">{copy.eyebrow}</p>
+          <h2 id="growth-timeline-title" className="mt-5 text-4xl font-extrabold tracking-[-0.05em] text-white sm:text-5xl lg:text-6xl">{copy.title}</h2>
+        </motion.div>
+        <div className="hidden shrink-0 gap-2 sm:flex">
+          <button type="button" onClick={() => scrollTimeline(-1)} className="timeline-control inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-sky-100 transition hover:border-sky-300/35 hover:bg-white/[0.08]" aria-label={copy.previous} title={copy.previous}>
+            <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+          </button>
+          <button type="button" onClick={() => scrollTimeline(1)} className="timeline-control inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-sky-100 transition hover:border-sky-300/35 hover:bg-white/[0.08]" aria-label={copy.next} title={copy.next}>
+            <ChevronRight className="h-5 w-5" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
 
-      <div className="relative mt-12 sm:mt-16">
-        <div className="timeline-line absolute bottom-0 left-[11px] top-0 w-px sm:left-1/2" aria-hidden="true" />
-        <div className="space-y-7 sm:space-y-10">
-          {copy.entries.map((entry, index) => {
-            const alignLeft = index % 2 === 0;
-            return (
-              <div key={entry.date} className="relative grid sm:grid-cols-2">
-                <span className="timeline-dot absolute left-[5px] top-7 z-10 h-[13px] w-[13px] rounded-full sm:left-1/2 sm:-translate-x-1/2" aria-hidden="true" />
-                <motion.article
-                  initial={{ opacity: 0, x: reduceMotion ? 0 : alignLeft ? -24 : 24, y: 14 }}
-                  whileInView={{ opacity: 1, x: 0, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  whileHover={reduceMotion ? undefined : { y: -6 }}
-                  transition={{ duration: reduceMotion ? 0 : 0.5, delay: reduceMotion ? 0 : Math.min(index, 4) * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                  className={`timeline-card ml-9 rounded-[24px] border border-white/[0.08] bg-white/[0.03] p-6 shadow-[0_18px_48px_rgba(0,0,0,0.14)] backdrop-blur-[20px] sm:ml-0 sm:p-8 ${alignLeft ? "sm:mr-10" : "sm:col-start-2 sm:ml-10"}`}
-                >
-                  <p className="inline-flex rounded-full border border-sky-300/20 bg-sky-400/[0.1] px-3 py-1 text-xs font-semibold tracking-[0.035em] text-sky-200">{entry.date}</p>
-                  {entry.title ? <h3 className="mt-5 text-xl font-bold leading-snug tracking-[-0.025em] text-white sm:text-2xl">{entry.title}</h3> : null}
-                  <div className="mt-4 space-y-4 text-sm leading-[1.85] text-white/75 sm:text-base">
-                    {entry.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-                  </div>
-                </motion.article>
-              </div>
-            );
-          })}
+      <div className="timeline-scroll-shell relative mt-10 sm:mt-12">
+        <div className="timeline-line-horizontal absolute left-0 right-0 top-[7px] h-px" aria-hidden="true" />
+        <div ref={scrollerRef} className="timeline-horizontal flex snap-x snap-mandatory gap-5 overflow-x-auto pb-6 pt-0 sm:gap-6" aria-label={copy.title}>
+          {copy.entries.map((entry, index) => (
+            <div key={entry.date} className="relative w-[82vw] max-w-[390px] shrink-0 snap-start pt-10 sm:w-[380px]">
+              <span className="timeline-dot absolute left-6 top-[1px] z-10 h-[13px] w-[13px] rounded-full" aria-hidden="true" />
+              <motion.article
+                initial={{ opacity: 0, x: reduceMotion ? 0 : 24, y: 14 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                viewport={{ once: true, amount: 0.22 }}
+                whileHover={reduceMotion ? undefined : { y: -6 }}
+                transition={{ duration: reduceMotion ? 0 : 0.5, delay: reduceMotion ? 0 : Math.min(index, 4) * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                className="timeline-card flex min-h-[320px] flex-col rounded-[24px] border border-white/[0.08] bg-white/[0.03] p-6 shadow-[0_18px_48px_rgba(0,0,0,0.14)] backdrop-blur-[20px] sm:p-7"
+              >
+                <p className="inline-flex w-fit rounded-full border border-sky-300/20 bg-sky-400/[0.1] px-3 py-1 text-xs font-semibold tracking-[0.035em] text-sky-200">{entry.date}</p>
+                {entry.title ? <h3 className="mt-5 text-xl font-bold leading-snug tracking-[-0.025em] text-white sm:text-2xl">{entry.title}</h3> : null}
+                <div className="mt-4 space-y-4 text-sm leading-[1.85] text-white/75 sm:text-base">
+                  {entry.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                </div>
+              </motion.article>
+            </div>
+          ))}
         </div>
       </div>
 
