@@ -120,9 +120,21 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
       initial={{ opacity: 0, y: 26 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.18 }}
-      whileHover={reduceMotion ? undefined : { y: -8 }}
+      whileHover={reduceMotion ? undefined : { y: -6 }}
+      whileTap={reduceMotion ? undefined : { y: -3, scale: 0.99 }}
       transition={{ duration: reduceMotion ? 0 : 0.46, delay: reduceMotion ? 0 : index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      className="product-matrix-card group flex h-[400px] flex-col overflow-hidden rounded-[24px] border border-white/[0.08] bg-white/[0.03] p-6 shadow-[0_18px_48px_rgba(0,0,0,0.14)] backdrop-blur-[20px]"
+      onPointerMove={(event) => {
+        if (reduceMotion) return;
+        const card = event.currentTarget;
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--product-glow-x", `${event.clientX - rect.left}px`);
+        card.style.setProperty("--product-glow-y", `${event.clientY - rect.top}px`);
+      }}
+      onPointerLeave={(event) => {
+        event.currentTarget.style.setProperty("--product-glow-x", "50%");
+        event.currentTarget.style.setProperty("--product-glow-y", "50%");
+      }}
+      className="product-matrix-card group relative flex h-[400px] flex-col overflow-hidden rounded-[24px] border border-white/[0.08] bg-white/[0.03] p-6 shadow-[0_18px_48px_rgba(0,0,0,0.14)] backdrop-blur-[20px]"
     >
       <p className="inline-flex w-fit rounded-full border border-sky-300/20 bg-sky-400/[0.1] px-3 py-1 text-xs font-semibold tracking-[0.04em] text-sky-200">
         {product.category}
