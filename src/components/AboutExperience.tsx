@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "./LanguageProvider";
 import { CollaborationSection } from "./CollaborationSection";
+import { GrowthTimeline } from "./GrowthTimeline";
 import { PartnerCarousel } from "./PartnerCarousel";
 import { ProductMatrix } from "./ProductMatrix";
 import type { Locale } from "@/lib/i18n";
@@ -346,6 +347,8 @@ export function AboutExperience() {
             ))}
           </div>
         </motion.section>
+
+        <GrowthTimeline />
 
         <motion.section
           initial={{ opacity: 0, y: 28 }}

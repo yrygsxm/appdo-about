@@ -740,6 +740,40 @@ html,
   box-shadow: 0 18px 44px rgb(12 95 205 / 0.18);
 }
 
+.timeline-line {
+  background: linear-gradient(180deg, transparent 0%, rgb(96 165 250 / 0.48) 9%, rgb(99 102 241 / 0.46) 90%, transparent 100%);
+  background-size: 100% 180%;
+  animation: timeline-flow 7s ease-in-out infinite;
+  box-shadow: 0 0 18px rgb(59 130 246 / 0.24);
+}
+
+.timeline-dot {
+  border: 2px solid rgb(186 230 253 / 0.78);
+  background: #2563eb;
+  box-shadow: 0 0 0 5px rgb(37 99 235 / 0.12), 0 0 22px rgb(59 130 246 / 0.52);
+}
+
+.timeline-card {
+  transition: border-color 220ms ease-out, background-color 220ms ease-out, box-shadow 220ms ease-out;
+}
+
+.timeline-card:hover {
+  border-color: rgb(111 184 255 / 0.46);
+  background-color: rgb(255 255 255 / 0.055);
+  box-shadow: 0 26px 58px rgb(15 98 204 / 0.18), 0 18px 48px rgb(0 0 0 / 0.18);
+}
+
+.timeline-closing::before {
+  content: "";
+  position: absolute;
+  inset: -45% 55% 5% -15%;
+  z-index: -1;
+  border-radius: 999px;
+  background: rgb(37 99 235 / 0.18);
+  filter: blur(54px);
+  pointer-events: none;
+}
+
 :root[data-theme="light"] .about-surface {
   background:
     radial-gradient(ellipse 70% 50% at 50% 26%, rgb(96 165 250 / 0.2) 0%, transparent 72%),
@@ -796,7 +830,9 @@ html,
 :root[data-theme="light"] .ecosystem-card,
 :root[data-theme="light"] .product-matrix-card,
 :root[data-theme="light"] .partner-marquee-item,
-:root[data-theme="light"] .collaboration-contact {
+:root[data-theme="light"] .collaboration-contact,
+:root[data-theme="light"] .timeline-card,
+:root[data-theme="light"] .timeline-closing {
   border-color: rgb(148 163 184 / 0.22);
   background-color: rgb(255 255 255 / 0.72);
   box-shadow:
@@ -825,6 +861,7 @@ html,
 }
 
 :root[data-theme="light"] .about-mission-section,
+:root[data-theme="light"] .about-timeline-section,
 :root[data-theme="light"] .about-ecosystem-wrap,
 :root[data-theme="light"] .partner-section {
   border-color: rgb(148 163 184 / 0.2);
@@ -857,10 +894,22 @@ html,
 
 :root[data-theme="light"] .ecosystem-card:hover,
 :root[data-theme="light"] .product-matrix-card:hover,
-:root[data-theme="light"] .collaboration-contact:hover {
+:root[data-theme="light"] .collaboration-contact:hover,
+:root[data-theme="light"] .timeline-card:hover {
   border-color: rgb(59 130 246 / 0.45);
   background-color: rgb(255 255 255 / 0.86);
   box-shadow: 0 26px 58px rgb(37 99 235 / 0.14);
+}
+
+:root[data-theme="light"] .timeline-line {
+  background: linear-gradient(180deg, transparent 0%, rgb(37 99 235 / 0.42) 9%, rgb(79 70 229 / 0.38) 90%, transparent 100%);
+  box-shadow: 0 0 16px rgb(37 99 235 / 0.14);
+}
+
+:root[data-theme="light"] .timeline-dot {
+  border-color: #dbeafe;
+  background: #2563eb;
+  box-shadow: 0 0 0 5px rgb(37 99 235 / 0.1), 0 0 18px rgb(37 99 235 / 0.24);
 }
 
 :root[data-theme="light"] .product-logo [class*="text-white"],
@@ -1030,6 +1079,16 @@ html,
   }
   to {
     transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes timeline-flow {
+  0%,
+  100% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
   }
 }
 

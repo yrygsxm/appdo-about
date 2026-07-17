@@ -17,17 +17,14 @@ export function SiteHeader() {
 
   return (
     <header className="site-header sticky top-0 z-50 border-b backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between gap-5 px-5 sm:px-8 lg:px-12">
-        <a href="#about" className="flex items-center gap-3" aria-label="APPDO">
-          <Image src="/assets/appdo-logo.png" alt="" width={40} height={40} className="brand-logo-image h-9 w-9 rounded-xl object-contain" priority />
-          <span className="text-lg font-extrabold tracking-[-0.04em] text-slate-100">APPDO</span>
-        </a>
+      <div className="mx-auto grid h-16 max-w-[1400px] grid-cols-[1fr_auto] items-center gap-5 px-5 sm:px-8 md:grid-cols-[1fr_auto_1fr] lg:px-12">
+        <span className="hidden md:block" aria-hidden="true" />
         <nav className="hidden items-center gap-7 md:flex" aria-label="Primary navigation">
           {links.map((link) => (
             <a key={link.href} href={link.href} className="text-sm font-medium text-slate-400 transition hover:text-white">{link.label}</a>
           ))}
         </nav>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-end gap-2">
           <LanguageSwitcher />
           <ThemeToggle />
         </div>
@@ -47,13 +44,13 @@ export function SiteFooter() {
   return (
     <footer className="site-footer border-t bg-slate-950">
       <div className="mx-auto flex max-w-[1400px] flex-col gap-6 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-12">
-        <div className="flex min-w-0 items-center gap-4 sm:gap-6">
+        <div className="flex min-w-0 items-center gap-3 sm:gap-5">
           <Image
             src="/assets/appdo-logo.png"
             alt="APPDO"
-            width={198}
-            height={82}
-            className="brand-logo-image h-auto w-[132px] shrink-0 object-contain sm:w-[176px]"
+            width={158}
+            height={66}
+            className="brand-logo-image h-auto w-[106px] shrink-0 object-contain sm:w-[141px]"
           />
           <p className="max-w-md text-sm leading-6 text-slate-400 sm:text-[15px]">{copy}</p>
         </div>
