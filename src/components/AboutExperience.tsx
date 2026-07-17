@@ -315,7 +315,7 @@ export function AboutExperience() {
               animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
               transition={reduceMotion ? undefined : { duration: 7.5, ease: "easeInOut", repeat: Infinity }}
               whileHover={reduceMotion ? undefined : { y: -4, scale: 1.015 }}
-              className="relative aspect-[781/325] w-full origin-center drop-shadow-[0_24px_42px_rgba(0,0,0,0.3)]"
+              className="about-awards-visual relative aspect-[781/325] w-full origin-center overflow-hidden rounded-[24px] drop-shadow-[0_24px_42px_rgba(0,0,0,0.3)]"
             >
               <Image
                 src="/assets/appdo-awards.webp"
