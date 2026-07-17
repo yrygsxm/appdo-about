@@ -348,8 +348,6 @@ export function AboutExperience() {
           </div>
         </motion.section>
 
-        <GrowthTimeline />
-
         <motion.section
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -368,6 +366,9 @@ export function AboutExperience() {
             </div>
           </div>
         </motion.section>
+
+        <ProductMatrix />
+        <GrowthTimeline />
 
         <div id="ecosystem" className="about-ecosystem-wrap mt-12 scroll-mt-24 border-t border-white/[0.1] pt-12 sm:mt-14 sm:pt-14 lg:mt-16 lg:pt-16">
           <section
@@ -428,7 +429,6 @@ export function AboutExperience() {
           </section>
         </div>
 
-        <ProductMatrix />
         <PartnerCarousel />
         <CollaborationSection />
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef } from "react";
 import { useLanguage } from "./LanguageProvider";
 import type { Locale } from "@/lib/i18n";
@@ -18,8 +18,6 @@ type TimelineCopy = {
   previous: string;
   next: string;
   entries: TimelineEntry[];
-  closingTitle: string;
-  closingParagraphs: string[];
 };
 
 const timelineCopy: Record<Locale, TimelineCopy> = {
@@ -45,14 +43,14 @@ const timelineCopy: Record<Locale, TimelineCopy> = {
         paragraphs: ["频道开始保持稳定更新，内容逐渐覆盖 VPN、网络安全、数字隐私、软件推荐、AI 工具等多个方向，影响力持续扩大。"],
       },
       {
-        date: "2022 年 9 月 19 日",
-        title: "订阅人数突破 12,368 人。",
-        paragraphs: ["随着内容体系逐渐完善，频道形成了以原创教程、热点解读、工具测评和行业观察为核心的更新风格，读者规模首次突破一万人。"],
-      },
-      {
         date: "2022 年 12 月 14 日",
         title: "订阅人数突破 18,602 人。",
         paragraphs: ["频道进入快速增长阶段，越来越多读者通过口碑推荐加入，也开始与更多开发者、品牌和社区建立合作。"],
+      },
+      {
+        date: "2023 年",
+        title: "累计阅读量突破 100 万。",
+        paragraphs: ["原创教程、工具评测与行业观察持续获得传播，频道内容累计阅读量首次突破百万，逐步形成覆盖数字生活多个领域的内容资料库。"],
       },
       {
         date: "2025 年 1 月 23 日",
@@ -61,18 +59,17 @@ const timelineCopy: Record<Locale, TimelineCopy> = {
       },
       {
         date: "2026 年 7 月",
-        title: "主频道订阅突破 39,000 人。",
+        title: "主频道订阅突破 40,000 人。",
+        paragraphs: ["与此同时，专注互联网历史、产品演变和数字文化内容的子频道也成长至 15,000 位订阅者。"],
+      },
+      {
+        date: "展望未来",
+        title: "继续记录技术如何改变世界。",
         paragraphs: [
-          "与此同时，专注互联网历史、产品演变和数字文化内容的子频道也成长至 15,000 位订阅者。",
-          "截至目前，两个频道累计拥有 54,000+ 位订阅者，每天持续分享最新科技动态、深度教程与互联网观察，希望帮助更多人理解技术、用好技术。",
+          "截至目前，两个频道累计拥有 55,000+ 位订阅者，每天持续分享最新科技动态、深度教程与互联网观察，希望帮助更多人理解技术、用好技术。",
+          "未来，我们仍将坚持原创和长期更新，继续带来值得阅读的内容，与大家一起记录互联网的发展。",
         ],
       },
-    ],
-    closingTitle: "感谢一路同行",
-    closingParagraphs: [
-      "从最初的几十位读者，到今天数万名订阅者，这一路的发展离不开每一位关注、转发、留言和建议的朋友。",
-      "感谢每一次阅读、每一次分享、每一次讨论。",
-      "未来，我们仍将坚持原创，坚持长期更新，继续带来值得阅读的内容，与大家一起记录互联网的发展，也一起见证技术不断改变世界。",
     ],
   },
   ja: {
@@ -97,14 +94,14 @@ const timelineCopy: Record<Locale, TimelineCopy> = {
         paragraphs: ["安定した更新を続け、VPN、ネットワークセキュリティ、デジタルプライバシー、ソフトウェア、AIツールへとテーマを広げ、影響力を伸ばしました。"],
       },
       {
-        date: "2022年9月19日",
-        title: "購読者数が12,368人を突破。",
-        paragraphs: ["独自チュートリアル、ニュース解説、ツールレビュー、業界観察を軸とする編集スタイルが形になり、読者数が初めて1万人を超えました。"],
-      },
-      {
         date: "2022年12月14日",
         title: "購読者数が18,602人を突破。",
         paragraphs: ["口コミによる参加が増え、急成長期へ。開発者、ブランド、コミュニティとの協業も広がり始めました。"],
+      },
+      {
+        date: "2023年",
+        title: "累計閲覧数が100万回を突破。",
+        paragraphs: ["独自チュートリアル、ツールレビュー、業界考察が広く共有され、コンテンツの累計閲覧数が初めて100万回を突破。デジタルライフの幅広い領域を扱う知識アーカイブへと成長しました。"],
       },
       {
         date: "2025年1月23日",
@@ -113,18 +110,17 @@ const timelineCopy: Record<Locale, TimelineCopy> = {
       },
       {
         date: "2026年7月",
-        title: "メインチャンネルが39,000人を突破。",
+        title: "メインチャンネルが40,000人を突破。",
+        paragraphs: ["インターネット史、製品の変遷、デジタル文化を扱うサブチャンネルも15,000人まで成長しました。"],
+      },
+      {
+        date: "これから",
+        title: "テクノロジーが世界を変える歩みを記録し続けます。",
         paragraphs: [
-          "インターネット史、製品の変遷、デジタル文化を扱うサブチャンネルも15,000人まで成長しました。",
-          "現在、2つのチャンネルは合計54,000人以上の購読者を持ち、最新テックニュース、実践ガイド、インターネット考察を毎日届けています。",
+          "現在、2つのチャンネルは合計55,000人以上の購読者を持ち、最新テックニュース、実践ガイド、インターネット考察を毎日届けています。より多くの人がテクノロジーを理解し、活用できるよう支援します。",
+          "これからも独自性と長期的な発信を大切にし、読む価値のあるコンテンツを届けながら、皆さまとインターネットの発展を記録していきます。",
         ],
       },
-    ],
-    closingTitle: "ともに歩んでくださった皆さまへ",
-    closingParagraphs: [
-      "数十人の読者から始まった歩みが、今では数万人へ。フォロー、共有、コメント、提案を寄せてくださった一人ひとりに支えられています。",
-      "すべての閲覧、共有、対話に心から感謝します。",
-      "これからも独自性と長期的な発信を大切にし、読む価値のあるコンテンツを届けながら、インターネットとテクノロジーの変化を皆さまと記録していきます。",
     ],
   },
   en: {
@@ -149,14 +145,14 @@ const timelineCopy: Record<Locale, TimelineCopy> = {
         paragraphs: ["A consistent publishing rhythm expanded our coverage across VPNs, cybersecurity, digital privacy, software recommendations, and AI tools, steadily growing our reach."],
       },
       {
-        date: "September 19, 2022",
-        title: "Subscribers passed 12,368.",
-        paragraphs: ["Our editorial voice took shape around original tutorials, timely explainers, tool reviews, and industry observations, taking the readership beyond 10,000 for the first time."],
-      },
-      {
         date: "December 14, 2022",
         title: "Subscribers passed 18,602.",
         paragraphs: ["The channel entered a period of rapid growth through word-of-mouth recommendations and began building more partnerships with developers, brands, and communities."],
+      },
+      {
+        date: "2023",
+        title: "Cumulative reads passed one million.",
+        paragraphs: ["Original tutorials, tool reviews, and industry observations continued to travel widely. Total readership passed one million, and the channel evolved into a growing knowledge archive across the digital-life landscape."],
       },
       {
         date: "January 23, 2025",
@@ -165,18 +161,17 @@ const timelineCopy: Record<Locale, TimelineCopy> = {
       },
       {
         date: "July 2026",
-        title: "The main channel passed 39,000 subscribers.",
+        title: "The main channel passed 40,000 subscribers.",
+        paragraphs: ["Our companion channel on internet history, product evolution, and digital culture also grew to 15,000 subscribers."],
+      },
+      {
+        date: "Looking ahead",
+        title: "We will keep documenting how technology changes the world.",
         paragraphs: [
-          "Our companion channel on internet history, product evolution, and digital culture also grew to 15,000 subscribers.",
-          "Together, the two channels now reach more than 54,000 subscribers with daily technology updates, in-depth tutorials, and observations that help more people understand and use technology well.",
+          "Together, the two channels now reach more than 55,000 subscribers with daily technology updates, in-depth tutorials, and observations that help more people understand and use technology well.",
+          "We will keep creating original work for the long term, sharing stories worth reading, and documenting the internet’s evolution with our community.",
         ],
       },
-    ],
-    closingTitle: "Thank you for growing with us",
-    closingParagraphs: [
-      "From our first few dozen readers to tens of thousands today, every follow, share, comment, and suggestion has shaped this journey.",
-      "Thank you for every read, every share, and every conversation.",
-      "We will keep creating original work, publishing for the long term, and sharing stories worth reading—documenting the evolution of the internet and the ways technology continues to change our world.",
     ],
   },
 };
@@ -228,7 +223,7 @@ export function GrowthTimeline() {
                 viewport={{ once: true, amount: 0.22 }}
                 whileHover={reduceMotion ? undefined : { y: -6 }}
                 transition={{ duration: reduceMotion ? 0 : 0.5, delay: reduceMotion ? 0 : Math.min(index, 4) * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                className="timeline-card flex min-h-[320px] flex-col rounded-[24px] border border-white/[0.08] bg-white/[0.03] p-6 shadow-[0_18px_48px_rgba(0,0,0,0.14)] backdrop-blur-[20px] sm:p-7"
+                className="timeline-card flex h-[380px] flex-col rounded-[24px] border border-white/[0.08] bg-white/[0.03] p-6 shadow-[0_18px_48px_rgba(0,0,0,0.14)] backdrop-blur-[20px] sm:h-[360px] sm:p-7"
               >
                 <p className="inline-flex w-fit rounded-full border border-sky-300/20 bg-sky-400/[0.1] px-3 py-1 text-xs font-semibold tracking-[0.035em] text-sky-200">{entry.date}</p>
                 {entry.title ? <h3 className="mt-5 text-xl font-bold leading-snug tracking-[-0.025em] text-white sm:text-2xl">{entry.title}</h3> : null}
@@ -241,19 +236,6 @@ export function GrowthTimeline() {
         </div>
       </div>
 
-      <motion.article
-        initial={{ opacity: 0, y: 24, scale: 0.985 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, amount: 0.18 }}
-        transition={{ duration: reduceMotion ? 0 : 0.66, ease: [0.16, 1, 0.3, 1] }}
-        className="timeline-closing relative mt-10 overflow-hidden rounded-[28px] border border-sky-200/[0.14] bg-white/[0.04] p-7 shadow-[0_22px_64px_rgba(20,90,190,0.12)] backdrop-blur-[24px] sm:mt-14 sm:p-10"
-      >
-        <Sparkles className="h-6 w-6 text-sky-200" aria-hidden="true" />
-        <h3 className="mt-5 text-2xl font-bold tracking-[-0.035em] text-white sm:text-3xl">{copy.closingTitle}</h3>
-        <div className="mt-5 max-w-5xl space-y-4 text-base leading-[1.9] text-white/75">
-          {copy.closingParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-        </div>
-      </motion.article>
     </section>
   );
 }

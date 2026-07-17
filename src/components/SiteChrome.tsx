@@ -10,8 +10,8 @@ export function SiteHeader() {
   const { t } = useLanguage();
   const links = [
     { href: "#about", label: t("nav", "about") },
-    { href: "#ecosystem", label: t("nav", "ecosystem") },
     { href: "#products", label: t("nav", "products") },
+    { href: "#ecosystem", label: t("nav", "ecosystem") },
     { href: "#cooperation", label: t("nav", "cooperation") },
   ];
 
