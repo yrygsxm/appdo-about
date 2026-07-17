@@ -164,10 +164,10 @@ export function ProductMatrix() {
   return (
     <section
       id="products"
-      className="relative mt-12 px-5 pb-6 pt-12 sm:mt-14 sm:px-8 sm:pb-8 sm:pt-14 lg:mt-16 lg:px-12 lg:pb-10 lg:pt-16"
+      className="product-matrix-section relative mt-12 border-t border-white/[0.1] pb-6 pt-12 sm:mt-14 sm:pb-8 sm:pt-14 lg:mt-16 lg:pb-10 lg:pt-16"
       aria-labelledby="product-matrix-title"
     >
-      <div className="relative z-10 mx-auto max-w-[1400px]">
+      <div className="relative z-10 w-full">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}

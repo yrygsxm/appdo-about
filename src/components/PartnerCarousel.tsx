@@ -69,7 +69,7 @@ export function PartnerCarousel() {
   const copy = partnerCopy[locale];
 
   return (
-    <section className="partner-section mt-8 border-t border-white/[0.1] pt-10 lg:mt-10 lg:pt-12" aria-labelledby="partner-title">
+    <section className="partner-section mt-8 pt-10 lg:mt-10 lg:pt-12" aria-labelledby="partner-title">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}

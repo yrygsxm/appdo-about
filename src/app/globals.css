@@ -869,9 +869,9 @@ html,
 }
 
 :root[data-theme="light"] .about-mission-section,
+:root[data-theme="light"] .product-matrix-section,
 :root[data-theme="light"] .about-timeline-section,
-:root[data-theme="light"] .about-ecosystem-wrap,
-:root[data-theme="light"] .partner-section {
+:root[data-theme="light"] .about-ecosystem-wrap {
   border-color: rgb(148 163 184 / 0.2);
 }
 
