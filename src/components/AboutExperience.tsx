@@ -211,8 +211,11 @@ function AnimatedMetric({ value, suffix, label, index }: Metric & { index: numbe
 }
 
 function EcosystemVisual({ reduceMotion }: { reduceMotion: boolean | null }) {
+  const visualRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(visualRef, { amount: 0.04, margin: "240px 0px" });
+
   return (
-    <div className="ecosystem-visual relative min-h-64 overflow-hidden rounded-[24px] sm:min-h-72 lg:min-h-full" aria-hidden="true">
+    <div ref={visualRef} className={`ecosystem-visual relative min-h-64 overflow-hidden rounded-[24px] sm:min-h-72 lg:min-h-full ${isInView ? "is-in-view" : ""}`} aria-hidden="true">
       <div className="ecosystem-pulse absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-500/25 blur-3xl" />
       <div className="ecosystem-orbit absolute left-1/2 top-1/2 h-44 w-[84%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-sky-300/25" />
       <div className="ecosystem-orbit ecosystem-orbit--reverse absolute left-1/2 top-1/2 h-36 w-[68%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-indigo-300/20" />

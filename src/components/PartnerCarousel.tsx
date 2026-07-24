@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { useState } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useRef, useState } from "react";
 import { useLanguage } from "./LanguageProvider";
 import type { Locale } from "@/lib/i18n";
 
@@ -45,6 +45,9 @@ function PartnerLogo({ partner }: { partner: Partner }) {
           src={`https://www.google.com/s2/favicons?sz=64&domain=${partner.domain}`}
           alt=""
           className="h-7 w-7 rounded-md object-contain"
+          loading="lazy"
+          decoding="async"
+          fetchPriority="low"
           onError={() => setFailed(true)}
         />
       ) : (
@@ -67,9 +70,11 @@ export function PartnerCarousel() {
   const reduceMotion = useReducedMotion();
   const { locale } = useLanguage();
   const copy = partnerCopy[locale];
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { amount: 0.04, margin: "240px 0px" });
 
   return (
-    <section className="partner-section mt-8 pt-10 lg:mt-10 lg:pt-12" aria-labelledby="partner-title">
+    <section ref={sectionRef} className="partner-section mt-8 pt-10 lg:mt-10 lg:pt-12" aria-labelledby="partner-title">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -83,7 +88,7 @@ export function PartnerCarousel() {
       </motion.div>
 
       <div className="partner-marquee mt-9 overflow-hidden" aria-label={copy.aria}>
-        <div className={`partner-marquee-track ${reduceMotion ? "partner-marquee-track--static" : ""}`}>
+        <div className={`partner-marquee-track ${reduceMotion ? "partner-marquee-track--static" : ""} ${!reduceMotion && !isInView ? "partner-marquee-track--paused" : ""}`}>
           <div className="flex gap-4">
             {partners.map((partner) => (
               <PartnerItem key={partner.name} partner={partner} />

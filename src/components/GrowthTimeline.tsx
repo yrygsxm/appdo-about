@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef } from "react";
 import { useLanguage } from "./LanguageProvider";
@@ -181,6 +181,8 @@ export function GrowthTimeline() {
   const { locale } = useLanguage();
   const copy = timelineCopy[locale];
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { amount: 0.04, margin: "240px 0px" });
 
   function scrollTimeline(direction: -1 | 1) {
     const scroller = scrollerRef.current;
@@ -190,7 +192,7 @@ export function GrowthTimeline() {
   }
 
   return (
-    <section className="about-timeline-section mt-10 border-t border-white/[0.1] pt-10 sm:mt-12 sm:pt-12 lg:mt-14 lg:pt-14" aria-labelledby="growth-timeline-title">
+    <section ref={sectionRef} className={`about-timeline-section mt-10 border-t border-white/[0.1] pt-10 sm:mt-12 sm:pt-12 lg:mt-14 lg:pt-14 ${isInView ? "is-in-view" : ""}`} aria-labelledby="growth-timeline-title">
       <div className="flex items-end justify-between gap-6">
         <motion.div
           initial={{ opacity: 0, y: 26 }}

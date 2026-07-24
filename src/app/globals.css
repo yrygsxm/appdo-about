@@ -452,6 +452,13 @@ html,
   animation: ecosystem-pulse 4.8s ease-in-out infinite;
 }
 
+.ecosystem-visual:not(.is-in-view) .ecosystem-orbit,
+.ecosystem-visual:not(.is-in-view) .ecosystem-pulse,
+.product-matrix-section:not(.is-in-view) .product-logo,
+.about-timeline-section:not(.is-in-view) .timeline-line-horizontal {
+  animation-play-state: paused;
+}
+
 .product-matrix-card {
   --product-glow-x: 50%;
   --product-glow-y: 50%;
@@ -714,6 +721,10 @@ html,
 }
 
 .partner-marquee:hover .partner-marquee-track {
+  animation-play-state: paused;
+}
+
+.partner-marquee-track--paused {
   animation-play-state: paused;
 }
 

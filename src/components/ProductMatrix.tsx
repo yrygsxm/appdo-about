@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Globe2, Send } from "lucide-react";
+import { useEffect, useMemo, useRef } from "react";
 import { useLanguage } from "./LanguageProvider";
 import type { Locale } from "@/lib/i18n";
 
@@ -114,6 +115,15 @@ function ProductLogo({ kind }: { kind: ProductKind }) {
 function ProductCard({ product, index }: { product: Product; index: number }) {
   const reduceMotion = useReducedMotion();
   const isXAction = product.kind === "x" || product.kind === "simon";
+  const frameRef = useRef<number | null>(null);
+  const rectRef = useRef<DOMRect | null>(null);
+  const pointerRef = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    return () => {
+      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+    };
+  }, []);
 
   return (
     <motion.article
@@ -123,14 +133,30 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
       whileHover={reduceMotion ? undefined : { y: -6 }}
       whileTap={reduceMotion ? undefined : { y: -3, scale: 0.99 }}
       transition={{ duration: reduceMotion ? 0 : 0.46, delay: reduceMotion ? 0 : index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      onPointerEnter={(event) => {
+        if (reduceMotion) return;
+        rectRef.current = event.currentTarget.getBoundingClientRect();
+      }}
       onPointerMove={(event) => {
         if (reduceMotion) return;
         const card = event.currentTarget;
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty("--product-glow-x", `${event.clientX - rect.left}px`);
-        card.style.setProperty("--product-glow-y", `${event.clientY - rect.top}px`);
+        const rect = rectRef.current ?? card.getBoundingClientRect();
+        rectRef.current = rect;
+        pointerRef.current = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+
+        if (frameRef.current !== null) return;
+        frameRef.current = requestAnimationFrame(() => {
+          frameRef.current = null;
+          card.style.setProperty("--product-glow-x", `${pointerRef.current.x}px`);
+          card.style.setProperty("--product-glow-y", `${pointerRef.current.y}px`);
+        });
       }}
       onPointerLeave={(event) => {
+        if (frameRef.current !== null) {
+          cancelAnimationFrame(frameRef.current);
+          frameRef.current = null;
+        }
+        rectRef.current = null;
         event.currentTarget.style.setProperty("--product-glow-x", "50%");
         event.currentTarget.style.setProperty("--product-glow-y", "50%");
       }}
@@ -171,12 +197,18 @@ export function ProductMatrix() {
   const reduceMotion = useReducedMotion();
   const { locale } = useLanguage();
   const copy = productCopy[locale];
-  const products = copy.products.map((product, index) => ({ ...product, ...productLinks[index] }));
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { amount: 0.04, margin: "240px 0px" });
+  const products = useMemo(
+    () => copy.products.map((product, index) => ({ ...product, ...productLinks[index] })),
+    [copy.products],
+  );
 
   return (
     <section
+      ref={sectionRef}
       id="products"
-      className="product-matrix-section relative mt-12 border-t border-white/[0.1] pb-6 pt-12 sm:mt-14 sm:pb-8 sm:pt-14 lg:mt-16 lg:pb-10 lg:pt-16"
+      className={`product-matrix-section relative mt-12 border-t border-white/[0.1] pb-6 pt-12 sm:mt-14 sm:pb-8 sm:pt-14 lg:mt-16 lg:pb-10 lg:pt-16 ${isInView ? "is-in-view" : ""}`}
       aria-labelledby="product-matrix-title"
     >
       <div className="relative z-10 w-full">

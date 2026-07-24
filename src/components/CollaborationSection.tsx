@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Check, Copy, FileText, Handshake, Mail, Send, Sparkles } from "lucide-react";
 import { useState } from "react";
+import { ContactSticker } from "./ContactSticker";
 import { useLanguage } from "./LanguageProvider";
 import type { Locale } from "@/lib/i18n";
 
@@ -238,7 +239,7 @@ export function CollaborationSection() {
             </div>
           </motion.div>
 
-          <div className="lg:pt-14">
+          <div className="relative lg:pt-14">
             <motion.h3
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -248,6 +249,7 @@ export function CollaborationSection() {
             >
               {copy.contactTitle}
             </motion.h3>
+            <ContactSticker />
             <div className="mt-9 space-y-5">
               {contacts.map((contact, index) => (
                 <ContactCard
