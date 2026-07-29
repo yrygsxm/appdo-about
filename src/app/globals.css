@@ -392,6 +392,118 @@ html,
   background: radial-gradient(ellipse at center, transparent 35%, rgb(0 2 12 / 0.45) 100%);
 }
 
+.about-hero-section {
+  min-width: 0;
+}
+
+.about-hero-motion-background {
+  --about-hero-glow-mask: #020b1b;
+  --about-hero-fade-color: #07142e;
+  position: absolute;
+  z-index: 0;
+  top: -5rem;
+  bottom: -4rem;
+  left: 50%;
+  width: 100vw;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 48% at 50% 18%, rgb(24 119 255 / 0.17), transparent 72%),
+    linear-gradient(180deg, #020611 0%, #041126 38%, #07142e 100%);
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.about-hero-dot-field,
+.about-hero-dot-field canvas,
+.about-hero-dot-field svg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.about-hero-dot-field {
+  z-index: 0;
+  pointer-events: none;
+}
+
+.about-hero-band {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 150%;
+  opacity: 0.9;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.about-hero-band canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.about-hero-bottom-fade {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, transparent 34%, rgb(0 3 14 / 0.34) 100%),
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      transparent 54%,
+      color-mix(in srgb, var(--about-hero-fade-color) 8%, transparent) 64%,
+      color-mix(in srgb, var(--about-hero-fade-color) 34%, transparent) 76%,
+      color-mix(in srgb, var(--about-hero-fade-color) 72%, transparent) 89%,
+      var(--about-hero-fade-color) 100%
+    );
+  pointer-events: none;
+}
+
+.about-hero-motion-background.is-webgl-unavailable::before {
+  position: absolute;
+  z-index: 1;
+  inset: 30% -12% -20%;
+  content: "";
+  background:
+    radial-gradient(ellipse at 18% 64%, rgb(14 165 233 / 0.5), transparent 42%),
+    radial-gradient(ellipse at 82% 70%, rgb(37 99 235 / 0.5), transparent 44%);
+  filter: blur(38px);
+}
+
+@media (min-width: 640px) {
+  .about-hero-motion-background {
+    top: -6rem;
+  }
+}
+
+:root[data-theme="light"] .about-hero-motion-background {
+  --about-hero-glow-mask: #eff6ff;
+  --about-hero-fade-color: #f8fbff;
+  background:
+    radial-gradient(ellipse 72% 52% at 50% 20%, rgb(14 165 233 / 0.14), transparent 70%),
+    linear-gradient(180deg, #eef7ff 0%, #f5faff 50%, #f8fbff 100%);
+}
+
+:root[data-theme="light"] .about-hero-dot-field {
+  opacity: 0.62;
+}
+
+:root[data-theme="light"] .about-hero-band {
+  opacity: 0.34;
+  mix-blend-mode: multiply;
+}
+
+:root[data-theme="light"] .about-hero-bottom-fade {
+  background:
+    radial-gradient(ellipse at center, transparent 42%, rgb(37 99 235 / 0.06) 100%),
+    linear-gradient(180deg, transparent 0%, transparent 58%, rgb(248 251 255 / 0.3) 72%, #f8fbff 100%);
+}
+
 .ecosystem-surface {
   background:
     radial-gradient(ellipse 56% 68% at 66% 50%, rgb(46 123 255 / 0.2) 0%, transparent 68%),

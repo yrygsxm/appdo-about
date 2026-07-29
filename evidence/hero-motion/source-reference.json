@@ -1,0 +1,54 @@
+{
+  "source": {
+    "site": "https://reactbits.dev/",
+    "repository": "DavidHDev/react-bits",
+    "observedCommit": "e4aa7c655527d3195eb7d3d647197ba0f79515e6"
+  },
+  "sourceFiles": [
+    "src/components/landingnew/Hero/Hero.jsx",
+    "src/components/landingnew/Hero/DotField.jsx",
+    "src/components/landingnew/Hero/HeroBand.jsx",
+    "src/components/landingnew/Hero/Hero.css"
+  ],
+  "verifiedReferenceBaseline": {
+    "path": "/Users/simon/Documents/逆向网站/reactbits-navbar-rebuild/capture-baseline",
+    "qaPath": "/Users/simon/Documents/逆向网站/reactbits-navbar-rebuild/qa-report.md",
+    "status": "PASS",
+    "notes": "The existing immutable baseline already verified target attribution, shader compilation, exact surface geometry, temporal change, pointer response, and source-to-baseline composition."
+  },
+  "sourceParameters": {
+    "dotField": {
+      "dotRadius": 1.5,
+      "dotSpacing": 14,
+      "cursorRadius": 500,
+      "bulgeStrength": 67,
+      "glowRadius": 160,
+      "dprCap": 2
+    },
+    "heroBand": {
+      "color": "#A855F7",
+      "speed": 0.2,
+      "frequency": 1,
+      "noise": 0.15,
+      "bandWidth": 0.14,
+      "rotation": 90,
+      "fadeTop": 0.75,
+      "iterations": 1,
+      "intensity": 1.25,
+      "scale": 1,
+      "warpStrength": 1,
+      "yOffset": 0.3,
+      "mouseInfluence": 0.3,
+      "dprCap": 1.5
+    }
+  },
+  "productizationChanges": {
+    "reason": "User explicitly requested the same motion language in APPDO blue.",
+    "bandColor": "#2563EB",
+    "dotGradient": [
+      "rgba(56, 189, 248, 0.42)",
+      "rgba(37, 99, 235, 0.28)"
+    ],
+    "lightTheme": "Blue band opacity is reduced and composited with multiply for legible dark text."
+  }
+}

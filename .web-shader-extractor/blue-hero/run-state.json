@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 3,
+  "state": "DONE_PROJECTIZED",
+  "gateStatus": {
+    "targetAttributed": true,
+    "targetLocked": true,
+    "replayReady": true,
+    "baselineVerified": true,
+    "projectVerified": true
+  },
+  "strategy": {
+    "replayRoute": "SOURCE_REPLAY",
+    "baseline": "existing immutable React Bits Hero baseline",
+    "projectization": "APPDO blue Hero only"
+  },
+  "targetSet": [
+    "dot-field",
+    "hero-band",
+    "pointer-glow",
+    "bottom-fade"
+  ],
+  "unknowns": {
+    "blocking": [],
+    "important": [],
+    "deferred": []
+  },
+  "artifacts": {
+    "scoutCard": "evidence/hero-motion/scout-card.json",
+    "manifest": "evidence/hero-motion/replay-manifest.json",
+    "qaReport": "evidence/hero-motion/qa-report.md",
+    "knownGaps": "evidence/hero-motion/known-gaps.md"
+  },
+  "nextAction": {
+    "state": "DONE_PROJECTIZED",
+    "action": "none",
+    "expectedEvidence": "complete"
+  }
+}

@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "./LanguageProvider";
 import { CollaborationSection } from "./CollaborationSection";
 import { GrowthTimeline } from "./GrowthTimeline";
+import { HeroMotionBackground } from "./HeroMotionBackground";
 import { PartnerCarousel } from "./PartnerCarousel";
 import { ProductMatrix } from "./ProductMatrix";
 import type { Locale } from "@/lib/i18n";
@@ -289,48 +290,51 @@ export function AboutExperience() {
   return (
     <main id="about" className="about-surface relative isolate overflow-hidden text-white">
       <div className="relative z-10 mx-auto max-w-[1400px] px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-24">
-        <section className="grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={transition}
-          >
-            <p className="text-sm font-semibold tracking-[0.04em] text-[#4ea1ff]">{copy.hero.eyebrow}</p>
-            <h1 className="mt-8 max-w-3xl text-5xl font-extrabold leading-[1.1] tracking-[-0.055em] text-white sm:text-6xl lg:text-[64px]">
-              {copy.hero.title}
-            </h1>
-            <p className="mt-6 max-w-2xl text-xl font-medium leading-relaxed text-white/80 sm:text-2xl">
-              {copy.hero.subtitle}
-            </p>
-            <div className="mt-8 max-w-2xl space-y-5 text-base leading-[1.8] text-white/75 sm:text-lg">
-              {copy.hero.intro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 28, y: 24, scale: 0.97 }}
-            whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.18 }}
-            transition={{ ...transition, delay: reduceMotion ? 0 : 0.14 }}
-            className="w-full"
-          >
+        <section className="about-hero-section relative isolate">
+          <HeroMotionBackground />
+          <div className="relative z-10 grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
             <motion.div
-              animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
-              transition={reduceMotion ? undefined : { duration: 7.5, ease: "easeInOut", repeat: Infinity }}
-              whileHover={reduceMotion ? undefined : { y: -4, scale: 1.015 }}
-              className="about-awards-visual relative aspect-[781/325] w-full origin-center overflow-hidden rounded-[24px] drop-shadow-[0_24px_42px_rgba(0,0,0,0.3)]"
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={transition}
             >
-              <Image
-                src="/assets/appdo-awards.webp"
-                alt={copy.hero.awardsAlt}
-                fill
-                priority
-                sizes="(max-width: 1023px) 100vw, 42vw"
-                className="object-contain"
-              />
+              <p className="text-sm font-semibold tracking-[0.04em] text-[#4ea1ff]">{copy.hero.eyebrow}</p>
+              <h1 className="mt-8 max-w-3xl text-5xl font-extrabold leading-[1.1] tracking-[-0.055em] text-white sm:text-6xl lg:text-[64px]">
+                {copy.hero.title}
+              </h1>
+              <p className="mt-6 max-w-2xl text-xl font-medium leading-relaxed text-white/80 sm:text-2xl">
+                {copy.hero.subtitle}
+              </p>
+              <div className="mt-8 max-w-2xl space-y-5 text-base leading-[1.8] text-white/75 sm:text-lg">
+                {copy.hero.intro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              </div>
             </motion.div>
-          </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 28, y: 24, scale: 0.97 }}
+              whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.18 }}
+              transition={{ ...transition, delay: reduceMotion ? 0 : 0.14 }}
+              className="w-full"
+            >
+              <motion.div
+                animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
+                transition={reduceMotion ? undefined : { duration: 7.5, ease: "easeInOut", repeat: Infinity }}
+                whileHover={reduceMotion ? undefined : { y: -4, scale: 1.015 }}
+                className="about-awards-visual relative aspect-[781/325] w-full origin-center overflow-hidden rounded-[24px] drop-shadow-[0_24px_42px_rgba(0,0,0,0.3)]"
+              >
+                <Image
+                  src="/assets/appdo-awards.webp"
+                  alt={copy.hero.awardsAlt}
+                  fill
+                  priority
+                  sizes="(max-width: 1023px) 100vw, 42vw"
+                  className="object-contain"
+                />
+              </motion.div>
+            </motion.div>
+          </div>
         </section>
 
         <motion.section

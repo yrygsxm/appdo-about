@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 3,
+  "capturedAt": "2026-07-29",
+  "sourceUrl": "https://reactbits.dev/",
+  "lockStatus": "locked",
+  "effectBoundary": "hero-surface-plus-dom-fade",
+  "targetSet": [
+    "Canvas2D interactive dot field",
+    "single-pass WebGL animated band",
+    "pointer-following SVG glow mask",
+    "DOM bottom fade"
+  ],
+  "excluded": [
+    "React Bits foreground copy and branding",
+    "below-fold ShapeGrid canvas",
+    "below-fold Magic Rings canvas",
+    "APPDO sections after the hero"
+  ],
+  "targetAttribution": "passed",
+  "targetLocked": true,
+  "evidence": [
+    "evidence/hero-motion/source-reference.json"
+  ],
+  "blockingUnknowns": []
+}

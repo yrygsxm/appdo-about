@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 3,
+  "route": "SOURCE_REPLAY",
+  "fidelityTier": "source-derived single-pass replay with user-directed palette change",
+  "runtime": {
+    "backend": "Canvas2D plus native WebGL 1",
+    "owner": "main thread",
+    "framework": "Next.js client component"
+  },
+  "renderGraph": [
+    {
+      "order": 1,
+      "pass": "dot-field",
+      "blend": "normal"
+    },
+    {
+      "order": 2,
+      "pass": "hero-band",
+      "blend": "premultiplied alpha plus CSS screen in dark mode and multiply in light mode"
+    },
+    {
+      "order": 3,
+      "pass": "bottom-fade",
+      "blend": "normal alpha"
+    }
+  ],
+  "timeline": {
+    "bandTime": "elapsed seconds from performance.now",
+    "pointerSmoothing": "min(1, deltaSeconds * 4)",
+    "dotPointerSamplingMs": 20,
+    "reducedMotion": "static dot frame and static shader time"
+  },
+  "inputs": {
+    "pointer": "window pointermove drives dot speed/bulge and normalized shader pointer",
+    "resize": "ResizeObserver updates dot root and the 150 percent WebGL band independently"
+  },
+  "resources": [
+    "inline vertex shader",
+    "inline fragment shader",
+    "CSS and SVG gradients"
+  ],
+  "texturesOrModels": [],
+  "projectBindings": [
+    "src/components/HeroMotionBackground.tsx",
+    "src/components/AboutExperience.tsx",
+    "src/app/globals.css"
+  ],
+  "deliberateDivergence": {
+    "sourceBandColor": "#A855F7",
+    "projectBandColor": "#2563EB",
+    "sourceDotPalette": "violet",
+    "projectDotPalette": "sky and royal blue",
+    "truth": "USER_DIRECTED"
+  },
+  "blockingUnknowns": []
+}
