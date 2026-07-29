@@ -14,7 +14,7 @@ export function LanguageSwitcher() {
       aria-label={t("nav", "language")}
     >
       <Languages className="h-4 w-4" aria-hidden="true" />
-      <span className="text-xs font-semibold leading-none">{localeLabels[locale]}</span>
+      <span className="text-[15px] font-semibold leading-none">{localeLabels[locale]}</span>
       <select
         value={locale}
         onChange={(event) => setLocale(event.target.value as typeof locale)}

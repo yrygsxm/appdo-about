@@ -2,12 +2,16 @@
 
 import Image from "next/image";
 import { Mail, Send } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
 import { useLanguage } from "./LanguageProvider";
 
 export function SiteHeader() {
   const { t } = useLanguage();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const linksRef = useRef<HTMLElement>(null);
+  const highlightRef = useRef<HTMLSpanElement>(null);
   const links = [
     { href: "#about", label: t("nav", "about") },
     { href: "#products", label: t("nav", "products") },
@@ -15,21 +19,69 @@ export function SiteHeader() {
     { href: "#cooperation", label: t("nav", "cooperation") },
   ];
 
+  useEffect(() => {
+    const syncScrollState = () => setIsScrolled(window.scrollY > 24);
+
+    syncScrollState();
+    window.addEventListener("scroll", syncScrollState, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", syncScrollState);
+    };
+  }, []);
+
+  function moveHighlight(link: HTMLAnchorElement) {
+    const linksElement = linksRef.current;
+    const highlight = highlightRef.current;
+    if (!linksElement || !highlight) return;
+
+    const parentRect = linksElement.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
+    highlight.style.setProperty("--nav-highlight-x", `${linkRect.left - parentRect.left}px`);
+    highlight.style.setProperty("--nav-highlight-width", `${linkRect.width}px`);
+    highlight.style.setProperty("--nav-highlight-height", `${linkRect.height}px`);
+    highlight.classList.add("is-visible");
+  }
+
+  function hideHighlight() {
+    highlightRef.current?.classList.remove("is-visible");
+  }
+
   return (
-    <header className="site-header sticky top-0 z-50 border-b backdrop-blur-xl">
-      <div className="mx-auto grid h-16 max-w-[1400px] grid-cols-[1fr_auto] items-center gap-5 px-5 sm:px-8 md:grid-cols-[1fr_auto_1fr] lg:px-12">
-        <span className="hidden md:block" aria-hidden="true" />
-        <nav className="hidden items-center gap-7 md:flex" aria-label="Primary navigation">
-          {links.map((link) => (
-            <a key={link.href} href={link.href} className="text-sm font-medium text-slate-400 transition hover:text-white">{link.label}</a>
-          ))}
-        </nav>
-        <div className="flex items-center justify-end gap-2">
-          <LanguageSwitcher />
-          <ThemeToggle />
+    <>
+      <div className="site-header-spacer h-16" aria-hidden="true" />
+      <header className={`site-header ${isScrolled ? "site-header--scrolled" : ""}`}>
+        <div className="site-header-frame">
+          <nav
+            ref={linksRef}
+            className="site-nav-links hidden md:flex"
+            aria-label="Primary navigation"
+            onPointerLeave={hideHighlight}
+          >
+            <span ref={highlightRef} className="site-nav-highlight" aria-hidden="true" />
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="site-nav-link"
+                onPointerEnter={(event) => moveHighlight(event.currentTarget)}
+                onFocus={(event) => moveHighlight(event.currentTarget)}
+                onBlur={hideHighlight}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+          <div className="site-nav-actions">
+            <LanguageSwitcher />
+            <ThemeToggle />
+            <a className="nav-contact-button" href="#cooperation">
+              <span>{t("nav", "contact")}</span>
+            </a>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 }
 

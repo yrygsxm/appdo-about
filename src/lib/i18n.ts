@@ -18,9 +18,9 @@ export function resolveLocale(value: string | null | undefined): Locale {
 }
 
 const navCopy: Record<Locale, Record<string, string>> = {
-  zh: { language: "切换语言", about: "关于我们", ecosystem: "生态系统", products: "产品矩阵", cooperation: "合作" },
-  ja: { language: "言語を切り替え", about: "私たちについて", ecosystem: "エコシステム", products: "プロダクト", cooperation: "協業" },
-  en: { language: "Switch language", about: "About", ecosystem: "Ecosystem", products: "Products", cooperation: "Partnerships" },
+  zh: { language: "切换语言", about: "关于我们", ecosystem: "生态系统", products: "产品矩阵", cooperation: "合作", contact: "联系我们" },
+  ja: { language: "言語を切り替え", about: "私たちについて", ecosystem: "エコシステム", products: "プロダクト", cooperation: "協業", contact: "お問い合わせ" },
+  en: { language: "Switch language", about: "About", ecosystem: "Ecosystem", products: "Products", cooperation: "Partnerships", contact: "Contact us" },
 };
 
 export function t(locale: Locale, _scope: "nav", key: string) {
