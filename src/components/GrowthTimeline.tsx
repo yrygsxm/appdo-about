@@ -115,10 +115,9 @@ const timelineCopy: Record<Locale, TimelineCopy> = {
       },
       {
         date: "これから",
-        title: "テクノロジーが世界を変える歩みを記録し続けます。",
+        title: "技術が変える世界を記録し続けます。",
         paragraphs: [
-          "現在、2つのチャンネルは合計55,000人以上の購読者を持ち、最新テックニュース、実践ガイド、インターネット考察を毎日届けています。より多くの人がテクノロジーを理解し、活用できるよう支援します。",
-          "これからも独自性と長期的な発信を大切にし、読む価値のあるコンテンツを届けながら、皆さまとインターネットの発展を記録していきます。",
+          "2つのチャンネルは計55,000人以上へ成長しました。これからも独自のテック情報と実践ガイドを届け、皆さまとインターネットの変化を記録していきます。",
         ],
       },
     ],
@@ -166,10 +165,9 @@ const timelineCopy: Record<Locale, TimelineCopy> = {
       },
       {
         date: "Looking ahead",
-        title: "We will keep documenting how technology changes the world.",
+        title: "We will keep documenting a changing digital world.",
         paragraphs: [
-          "Together, the two channels now reach more than 55,000 subscribers with daily technology updates, in-depth tutorials, and observations that help more people understand and use technology well.",
-          "We will keep creating original work for the long term, sharing stories worth reading, and documenting the internet’s evolution with our community.",
+          "Together, our channels reach 55,000+ subscribers. We will keep publishing original tech updates and practical guides while documenting the internet’s evolution.",
         ],
       },
     ],
